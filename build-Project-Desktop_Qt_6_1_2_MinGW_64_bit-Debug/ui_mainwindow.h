@@ -17,7 +17,9 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextBrowser>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "qcustomplot.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -28,6 +30,10 @@ public:
     QPushButton *OpenFileButton;
     QTextBrowser *FilePath;
     QComboBox *comboBox;
+    QWidget *verticalLayoutWidget;
+    QVBoxLayout *verticalLayout;
+    QCustomPlot *widget;
+    QPushButton *DrawGraph;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -35,22 +41,36 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(800, 600);
+        MainWindow->resize(1061, 659);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         OpenFileButton = new QPushButton(centralwidget);
         OpenFileButton->setObjectName(QString::fromUtf8("OpenFileButton"));
-        OpenFileButton->setGeometry(QRect(10, 20, 121, 31));
+        OpenFileButton->setGeometry(QRect(10, 20, 181, 41));
         FilePath = new QTextBrowser(centralwidget);
         FilePath->setObjectName(QString::fromUtf8("FilePath"));
-        FilePath->setGeometry(QRect(140, 20, 631, 31));
+        FilePath->setGeometry(QRect(210, 20, 841, 31));
         comboBox = new QComboBox(centralwidget);
         comboBox->setObjectName(QString::fromUtf8("comboBox"));
-        comboBox->setGeometry(QRect(10, 70, 121, 31));
+        comboBox->setGeometry(QRect(10, 80, 181, 41));
+        verticalLayoutWidget = new QWidget(centralwidget);
+        verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
+        verticalLayoutWidget->setGeometry(QRect(210, 60, 841, 551));
+        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        widget = new QCustomPlot(verticalLayoutWidget);
+        widget->setObjectName(QString::fromUtf8("widget"));
+
+        verticalLayout->addWidget(widget);
+
+        DrawGraph = new QPushButton(centralwidget);
+        DrawGraph->setObjectName(QString::fromUtf8("DrawGraph"));
+        DrawGraph->setGeometry(QRect(10, 140, 181, 41));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 25));
+        menubar->setGeometry(QRect(0, 0, 1061, 25));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -64,7 +84,8 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        OpenFileButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
+        OpenFileButton->setText(QCoreApplication::translate("MainWindow", "\320\236\321\202\320\272\321\200\321\213\321\202\321\214 \320\244\320\260\320\271\320\273", nullptr));
+        DrawGraph->setText(QCoreApplication::translate("MainWindow", "\320\237\320\276\321\201\321\202\321\200\320\276\320\270\321\202\321\214 \320\223\321\200\320\260\321\204\320\270\320\272", nullptr));
     } // retranslateUi
 
 };

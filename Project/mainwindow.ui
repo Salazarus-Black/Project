@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1061</width>
+    <height>659</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,20 +19,20 @@
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>121</width>
-      <height>31</height>
+      <width>181</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Открыть Файл</string>
     </property>
    </widget>
    <widget class="QTextBrowser" name="FilePath">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>210</x>
       <y>20</y>
-      <width>631</width>
+      <width>841</width>
       <height>31</height>
      </rect>
     </property>
@@ -41,10 +41,38 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>70</y>
-      <width>121</width>
-      <height>31</height>
+      <y>80</y>
+      <width>181</width>
+      <height>41</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>60</y>
+      <width>841</width>
+      <height>551</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QCustomPlot" name="widget" native="true"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="DrawGraph">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>140</y>
+      <width>181</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Построить График</string>
     </property>
    </widget>
   </widget>
@@ -53,13 +81,21 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1061</width>
      <height>25</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

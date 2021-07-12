@@ -15,15 +15,19 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+QMap<QString,QVector<int>> Data;//инициализация главной переменной: ключ - время пакета, данные - вектор данных
 
 void MainWindow::on_OpenFileButton_clicked()
 {
+    ui->comboBox->clear(); //очищаем список со временем(нужно если требуется открыть новый файл)
+    ui->widget->clearGraphs();//очищаем график(нужно если требуется открыть новый файл)
+    Data.clear();//очищаем главную переменную(нужно если требуется открыть новый файл)
+
     QString FileName = QFileDialog::getOpenFileName(this, "Выберите файл", QDir::currentPath(), "*.txt");//вызов диалогового окна для открытия файла
     ui->FilePath->setText(FileName);//считывание имени файла
     QFile file(FileName);//открытие файла
 
     ui->comboBox->clear();//очистка листа выбора
-    QMap<QString,QVector<int>> Data;//инициализация главной переменной: ключ - время пакета, данные - вектор данных
     QVector<int>TemporaryDataMass;//временное хранилище данных в числовом формате
     int kofic;//коэфициент умножения
     QString TemporaryData,TemporaryData1,LineTest,LineTest1,CorrectSignal;//инициализация:
@@ -68,5 +72,35 @@ void MainWindow::on_OpenFileButton_clicked()
    for(const auto &i : Data.keys()){//перебирая все ключи(вмемя прибытия пакетов)
         ui->comboBox->addItem(i);//переноим их в список
     }
+}
+
+
+void MainWindow::on_DrawGraph_clicked()
+{
+    QVector<double> SelectedData,SelectedDataTime;//инициализация временных хранилищ для данных и времени(y и x на графике)
+    double counter = 0, MaxElement = 0, MinElement = 0;//инициализация счетчика(для заполнения хранилища времени) и
+                                       //максимального/минимального элемента(для маштабирования графика)
+    QString SelectedTime = ui->comboBox->currentText();// инициализация и запись выбранного времени из списка
+    for (auto i : Data.keys()){//перебираем все ключи хранилища
+        if(SelectedTime ==i){//когда находим совпадение
+            for(auto q : Data[i]){//перебираем хранилище данных из найденного ключа
+                SelectedData.push_back(q);//переносим хранилище данных во временное хранилище
+                SelectedDataTime.push_back(counter);//заполняем хранилище времени равным колличеством элементов
+                counter++;
+                if(q>MaxElement){//во время перебора ищем максимальный элемент
+                    MaxElement=q;//и когда находим - записываем его
+                }
+                if(q<MinElement){//во время перебора ищем максимальный элемент
+                    MinElement=q;//и когда находим - записываем его
+                }
+            }
+        }
+    }
+    ui->widget->clearGraphs();//очищаем график
+    ui->widget->xAxis->setRange(0,SelectedDataTime.size()+5);//настраиваем масштаб оси Х
+    ui->widget->yAxis->setRange(MinElement-5,MaxElement+5);//настраиваем масштаб оси Y
+    ui->widget->addGraph();//добавляем график
+    ui->widget->graph(0)->addData(SelectedDataTime,SelectedData);//передаем графику данные
+    ui->widget->replot();//рисуем график
 }
 

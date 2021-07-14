@@ -18,7 +18,7 @@ public:
 private slots:
     void on_OpenFileButton_clicked();
 
-    void on_DrawGraph_clicked();
+    void on_comboBox_currentTextChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;

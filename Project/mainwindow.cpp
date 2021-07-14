@@ -8,6 +8,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    ui->widget->setInteraction(QCP::iRangeZoom, true);//Добавление зума на графике
+    ui->widget->setInteraction(QCP::iRangeDrag, true);//добавление перемещения по графику
 }
 
 MainWindow::~MainWindow()
@@ -74,13 +77,11 @@ void MainWindow::on_OpenFileButton_clicked()
     }
 }
 
-
-void MainWindow::on_DrawGraph_clicked()
+void MainWindow::on_comboBox_currentTextChanged(const QString &SelectedTime)
 {
     QVector<double> SelectedData,SelectedDataTime;//инициализация временных хранилищ для данных и времени(y и x на графике)
     double counter = 0, MaxElement = 0, MinElement = 0;//инициализация счетчика(для заполнения хранилища времени) и
                                        //максимального/минимального элемента(для маштабирования графика)
-    QString SelectedTime = ui->comboBox->currentText();// инициализация и запись выбранного времени из списка
     for (auto i : Data.keys()){//перебираем все ключи хранилища
         if(SelectedTime ==i){//когда находим совпадение
             for(auto q : Data[i]){//перебираем хранилище данных из найденного ключа
